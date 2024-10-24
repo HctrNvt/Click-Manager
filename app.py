@@ -7,8 +7,12 @@ class Application:
         
         self.root = tk.Tk() 
         self.root.title("Clicker")
-        self.root.geometry("800x800")
+        self.root.geometry("600x600")
         # Création d'un label
+        self.main()
+    def main(self):
+        self.clear()
+        
         self.label = tk.Label(self.root, text="Entrez quelque chose :")
         self.elements.append(self.label)
         
@@ -20,7 +24,7 @@ class Application:
         self.button = tk.Button(self.root, text="Cliquez ici", command=self.clic)
         self.elements.append(self.button)
         
-        self.amelioration = tk.Button(self.root, text="Amélioration", command=self.buy)
+        self.amelioration = tk.Button(self.root, text="Boutique", command=self.boutique)
         self.elements.append(self.amelioration)
         
         # Création d'un label pour afficher le résultat
@@ -28,9 +32,20 @@ class Application:
         self.elements.append(self.label_result)
         
         self.pack()
+        self.updateCounter()
+    def boutique(self):
+        self.clear()
+        self.button = tk.Button(self.root, text="Retour", command=self.main)
+        self.elements.append(self.button)
+        
+        self.pack()
     def pack(self):
         for element in self.elements:
             element.pack()
+    def clear(self):
+        self.elements.clear()
+        for i in self.root.winfo_children():
+            i.destroy()
     def updateCounter(self):
         self.label_result["text"] = self.game.joueur.attributs["score"]
     def clic(self):
