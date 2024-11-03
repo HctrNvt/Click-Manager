@@ -37,17 +37,21 @@ class Joueur(Entite):
         bonusJoueur[bonusIndex] += 1
     
     def clic(self,game):
-        bonuss = self.attributs["bonus"]
-        for i in range(len(bonuss)): # Pour chaque bonus
-            if bonuss[i] > 0:
+        nbBonus = self.attributs["bonus"]
+        for i in range(len(nbBonus)): # Pour chaque bonus
+            if nbBonus[i] > 0:
                 effet = game.bonus[i].attributs["effet"] # Récupère les attribut de l'effet du bonus
                 # Applique l'effet en fonction
                 if effet["op"] == "+":
-                    self.ajouterScore( effet["nb"] * bonuss[i] )
+                    self.ajouterScore( effet["nb"] * nbBonus[i] )
                 if effet["op"] == "*":
-                    self.multiplieScore( effet["nb"] * bonuss[i] )
+                    self.setScore( self.attributs["score"]*(1+(effet["nb"] * nbBonus[i])) )
+                    # On enlève de la durabilité à l'objet
+                    game.bonus[i].attributs["durabilite"] -= 1
+                    if game.bonus[i].attributs["durabilite"] <= 0:
+                        self.attributs["bonus"][i] -= 1
         self.ajouterScore(1)
     def ajouterScore(self,score):
         self.attributs["score"] += score
-    def multiplieScore(self,score):
-        self.attributs["score"] *= score
+    def setScore(self,score):
+        self.attributs["score"] = score

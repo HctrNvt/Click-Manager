@@ -7,9 +7,26 @@ class Game:
         self.bonus = [] # Si on change l'ordre d'enregistrement, les saves seront corrompus
         self.bonus.append(Bonus("Nouvelle souris",100,Effet("+",1)))
         self.bonus.append(Bonus("Amis qui cliquent",850,Effet("+",5)))
-        self.bonus.append(Bonus("Souris en or",10000,Effet("+",25)))
+        self.bonus.append(Bonus("Souris en argent",1500,Effet("+",10)))
+        self.bonus.append(Bonus("Souris en or",5000,Effet("+",25)))
+        
+        self.bonus.append(Bonus("Augmentateur de souris",0,Effet("*",0.01)))
+        self.bonus.append(Bonus("Augmenteur de souris",100000,Effet("*",0.1)))
+        
+        self.setNbBonusClassique()
         
         self.joueur.attributs["bonus"] = [0]*len(self.bonus)
+    
+    def setNbBonusClassique(self):
+        """
+        Permet de définir le nombre de bonus de classique
+        """
+        self.nbEffetClassique = len(self.bonus)
+        for i in range(len(self.bonus)):
+            if self.bonus[i].attributs["effet"]["op"] == "*":
+                self.nbEffetClassique = i + 1
+        
+    
     def clic(self):
         self.joueur.clic(self)
         print(self.joueur.attributs["score"])
@@ -30,6 +47,7 @@ class Game:
         if self.joueur.attributs["score"] >= prix:
             self.joueur.ajouterBonus(bonusIndex)
             self.joueur.ajouterScore(-prix)
+            print(self.joueur.attributs["bonus"])
             return True
         return False
     def save(self,fileName):
