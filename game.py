@@ -4,7 +4,12 @@ class Game:
     def __init__(self,sauvegarde):
         self.load(sauvegarde)
     def registerBonus(self):
-        self.bonus = [] # Si on change l'ordre d'enregistrement, les saves seront corrompus
+        """
+        Enregistre les bonus dans le jeu 
+        Attention, si l'ordre de l'enregistrement change, les sauvegardes seront invalides
+        """
+        
+        self.bonus = []
         self.bonus.append(Bonus("Nouvelle souris",100,Effet("+",1)))
         self.bonus.append(Bonus("Amis qui cliquent",850,Effet("+",5)))
         self.bonus.append(Bonus("Souris en argent",1500,Effet("+",10)))
@@ -25,13 +30,17 @@ class Game:
         for i in range(len(self.bonus)):
             if self.bonus[i].attributs["effet"]["op"] == "*":
                 self.nbEffetClassique = i + 1
-        
-    
     def clic(self):
+        """"
+        Fait un clic dans le jeu
+        """
         self.joueur.clic(self)
         print(self.joueur.attributs["score"])
     def load(self,sauvegarde):
-        # On charge la sauvegarde
+        """
+        Charge le jeu à partir d'une sauvegarde ou,
+        fais une nouvelle partie
+        """
         if sauvegarde != None:
             data = json.loads(sauvegarde)
             print("sauvegarde chargee")
@@ -43,6 +52,11 @@ class Game:
         self.registerBonus()
 
     def tryBuy(self,bonusIndex:int):
+        """
+        Essaie d'acheter un bonus
+        Si possible : True, sinon False
+        """
+        
         prix = self.bonus[bonusIndex].attributs["prix"]
         if self.joueur.attributs["score"] >= prix:
             self.joueur.ajouterBonus(bonusIndex)
@@ -51,5 +65,8 @@ class Game:
             return True
         return False
     def save(self,fileName):
+        """
+        Sauvegarde le jeu dans le fichier précisé (fileName)
+        """
         with open("saves/"+fileName,"w") as f:
             json.dump({"joueur":self.joueur.attributs},f)
