@@ -11,11 +11,11 @@ class Game:
         
         self.bonus = []
         self.bonus.append(Bonus("Nouvelle souris",100,Effet("+",1)))
-        self.bonus.append(Bonus("Amis qui cliquent",850,Effet("+",5)))
+        self.bonus.append(Bonus("Amis qui cliquent",600,Effet("+",5)))
         self.bonus.append(Bonus("Souris en argent",1500,Effet("+",10)))
-        self.bonus.append(Bonus("Souris en or",5000,Effet("+",25)))
+        self.bonus.append(Bonus("Souris en or",3000,Effet("+",25)))
         
-        self.bonus.append(Bonus("Augmentateur de souris",0,Effet("*",0.01)))
+        self.bonus.append(Bonus("Augmentateur de souris",10000,Effet("*",0.01)))
         self.bonus.append(Bonus("Augmenteur de souris",100000,Effet("*",0.1)))
         
         self.setNbBonusClassique()
