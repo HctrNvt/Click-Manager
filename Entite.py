@@ -41,9 +41,10 @@ class Joueur(Entite):
         for i in range(len(nbBonus)): # Pour chaque bonus
             if nbBonus[i] > 0:
                 effet = game.bonus[i].attributs["effet"] # Récupère les attribut de l'effet du bonus
-                # Applique l'effet en fonction
                 if effet["op"] == "+":
+                    # Applique l'effet en fonction (éviter la boucle for fait plaisir quand même)
                     self.ajouterScore( effet["nb"] * nbBonus[i] )
+                
                 if effet["op"] == "*":
                     self.setScore( self.attributs["score"]*(1+(effet["nb"] * nbBonus[i])) )
                     # On enlève de la durabilité à l'objet

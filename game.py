@@ -19,8 +19,14 @@ class Game:
         self.bonus.append(Bonus("Augmenteur de souris",100000,Effet("*",0.1)))
         
         self.setNbBonusClassique()
-        
-        self.joueur.attributs["bonus"] = [0]*len(self.bonus)
+        self.joueur.attributs["bonus"] = [0]*self.nbEffetClassique
+
+        print(len(self.bonus))
+        print(self.nbEffetClassique)
+
+        for i in range(len(self.bonus)-self.nbEffetClassique):
+            self.joueur.attributs["bonus"].append([])
+        print(self.joueur.attributs["bonus"])
     
     def setNbBonusClassique(self):
         """
@@ -28,7 +34,7 @@ class Game:
         """
         self.nbEffetClassique = len(self.bonus)
         for i in range(len(self.bonus)):
-            if self.bonus[i].attributs["effet"]["op"] == "*":
+            if self.bonus[i].attributs["effet"]["op"] != "*":
                 self.nbEffetClassique = i + 1
     def clic(self):
         """"
