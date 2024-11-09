@@ -1,5 +1,5 @@
 import json
-from entite import Joueur,Bonus,Effet
+from entite import Joueur,Bonus
 class Game:
     def __init__(self,sauvegarde):
         self.load(sauvegarde)
@@ -10,23 +10,15 @@ class Game:
         """
         
         self.bonus = []
-        self.bonus.append(Bonus("Nouvelle souris",100,Effet("+",1)))
-        self.bonus.append(Bonus("Amis qui cliquent",600,Effet("+",5)))
-        self.bonus.append(Bonus("Souris en argent",1500,Effet("+",10)))
-        self.bonus.append(Bonus("Souris en or",3000,Effet("+",25)))
-        
-        self.bonus.append(Bonus("Augmentateur de souris",10000,Effet("*",0.01)))
-        self.bonus.append(Bonus("Augmenteur de souris",100000,Effet("*",0.1)))
-        
-        self.setNbBonusClassique()
-        self.joueur.attributs["bonus"] = [0]*self.nbEffetClassique
+        self.bonus.append(# Bonus classique
+        [
+            Bonus("Nouvelle souris",0,1),
+            Bonus("Amis qui cliquent",600,5)
+        ])
 
-        print(len(self.bonus))
-        print(self.nbEffetClassique)
-
-        for i in range(len(self.bonus)-self.nbEffetClassique):
-            self.joueur.attributs["bonus"].append([])
-        print(self.joueur.attributs["bonus"])
+        
+        # self.setNbBonusClassique()
+        self.joueur.attributs["bonus"] = [0]*len(self.bonus[0])
     
     def setNbBonusClassique(self):
         """
@@ -62,8 +54,8 @@ class Game:
         Essaie d'acheter un bonus
         Si possible : True, sinon False
         """
-        
-        prix = self.bonus[bonusIndex].attributs["prix"]
+        # Comment faire cette partie ? Il faut que ça puisse acheter un bonus mais peu importe le type ? 
+        prix = self.bonus[bonusIndex].getPrix()
         if self.joueur.attributs["score"] >= prix:
             self.joueur.ajouterBonus(bonusIndex)
             self.joueur.ajouterScore(-prix)

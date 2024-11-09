@@ -44,10 +44,12 @@ class Application:
         self.elements.append(self.label_result)
         
         # On ajoute tout les bonus dans la fenêtre
-        for i in range(len(self.game.bonus)):
+        i = 0
+        for y in self.game.bonus[0]:
             self.elements.append(tk.Button(self.root,
-                                    text=self.game.bonus[i].attributs["id"]+" "+str(self.game.bonus[i].attributs["prix"]),
+                                    text=y.getName()+" "+str(y.getPrix()),
                                     command=lambda i=i: self.buy(i)))
+            i += 1
         
         self.pack()
         self.updateCounter()
